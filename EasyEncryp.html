@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การเข้ารหัสด้วยโจทย์คำนวณ</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        textarea, input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <h2>การเข้ารหัสด้วยโจทย์คำนวณ</h2>
+    <h3>ใส่โจทย์คำนวณ</h3>
+    <input type="text" id="mathInput" placeholder="ใส่โจทย์คำนวณ เช่น |12-13|">
+    <button onclick="calculateAndEncode()">เข้ารหัส</button>
+
+    <h3>ผลลัพธ์การเข้ารหัส</h3>
+    <div id="encodedResult"></div>
+
+    <h3>ถอดรหัสข้อความ</h3>
+    <textarea id="decodedText" rows="4" placeholder="กรุณาใส่ข้อความที่เข้ารหัส"></textarea>
+    <button onclick="decode()">ถอดรหัส</button>
+
+    <h3>ผลลัพธ์การถอดรหัส</h3>
+    <div id="decodedResult"></div>
+
+    <script>
+        function calculateAndEncode() {
+            const mathInput = document.getElementById('mathInput').value;
+            const result = evaluateMathExpression(mathInput);
+            const encodedChar = String.fromCharCode(result + 96); 
+            document.getElementById('encodedResult').innerText = encodedChar;
+        }
+
+        function evaluateMathExpression(expression) {
+            //ลบ| ออกจากโจทย์
+            const cleanExpression = expression.replace(/^\|/, '').replace(/\|$/, '');
+            return eval(cleanExpression); //ใช้evalเพื่อคำนวณโจทย์
+        }
+
+        function decode() {
+            const text = document.getElementById('decodedText').value;
+            const decodedValue = text.charCodeAt(0) - 96; 
+            document.getElementById('decodedResult').innerText = decodedValue;
+        }
+
+    </script>
+</body>
+</html>
